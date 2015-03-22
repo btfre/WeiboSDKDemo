@@ -14,13 +14,10 @@
     <string name="weibosdk_demo_feature_open_device_id">获取设备 ID</string>
 
     <!-- 获取 Token -->
-    <string name="weibosdk_demo_obtain_token_via_sso_all_in_one">SSO 授权（ALL IN ONE）</string>
-    <string name="weibosdk_demo_obtain_token_via_web">SSO 授权（Web）</string>
-    <string name="weibosdk_demo_obtain_token_via_sso">SSO 授权（仅客户端）</string>
+    <string name="weibosdk_demo_obtain_token_via_sso_all_in_one">登录</string>
     <string name="weibosdk_demo_obtain_token_via_signature">Web 授权</string>
     <string name="weibosdk_demo_obtain_token_via_quick_sso">通过微博客户端快速授权</string>
-    <string name="weibosdk_demo_obtain_token_via_code">通过 Code 获取 Token</string>
-    <string name="weibosdk_demo_obtain_token_logout">用户登出</string>
+    <string name="weibosdk_demo_obtain_token_logout">注销</string>
     <string name="weibosdk_demo_token_info">Token 信息：</string>
     <string name="weibosdk_demo_token_has_existed">Token 仍在有效期内，无需再次登录。</string>
     <string name="weibosdk_demo_obtain_token_hint"><b>请注意：</b>\n<li>SSO 登录需要微博客户端的支持，目前仅 3.0.0 及以上微博客户端版本支持 SSO；如果未安装，将自动转为 Oauth2.0 Web 授权认证（即第一种认证方式）</li>\n<li>如果您通过方式一和方式二获取不到 Token，而是获取到 code，那说明您的包名和签名存在问题，请到开放平台注册包名和签名。详情请查看 FAQ 文档</li></string>
@@ -80,24 +77,6 @@
     <string name="weibosdk_demo_test_video_url">http://video.sina.com.cn/p/sports/cba/v/2013-10-22/144463050817.html</string>
     <!-- NOTE: Voice 的 URL 与 Music 一样 -->
     <string name="weibosdk_demo_test_voice_url">http://music.sina.com.cn/yueku/i/2850305.html</string>
-
-    <!-- 分享示例模板 -->
-    <string name="weibosdk_demo_share_text_template">我正在使用微博客户端发博器分享文字</string>
-    <string name="weibosdk_demo_share_webpage_template">【%1$s】（分享自 WeiboSDKDemo %2$s）</string>
-    <string name="weibosdk_demo_share_music_template">我正在听 %1$s（分享自 WeiboSDKDemo %2$s）</string>
-    <string name="weibosdk_demo_share_video_template">我正在看 %1$s（分享自 WeiboSDKDemo %2$s）</string>
-    <string name="weibosdk_demo_share_voice_template">我分享了 %1$s（分享自 WeiboSDKDemo %2$s）</string>
-    <string name="weibosdk_demo_share_webpage_demo">XXX 新闻</string>
-    <string name="weibosdk_demo_share_music_demo">XXX 音乐</string>
-    <string name="weibosdk_demo_share_video_demo">XXX 视频</string>
-    <string name="weibosdk_demo_share_voice_demo">XXX 声音</string>
-
-    <!-- 分享成功失败的 Toast -->
-    <string name="weibosdk_demo_toast_share_success">分享成功</string>
-    <string name="weibosdk_demo_toast_share_failed">分享失败</string>
-    <string name="weibosdk_demo_toast_share_canceled">取消分享</string>
-    <string name="weibosdk_demo_toast_share_response_args_success">收到微博发起的请求成功</string>
-    <string name="weibosdk_demo_toast_share_response_args_failed">收到客户端请求消息失败</string>
     
     <!-- 微博支付 -->
     <string name="weibosdk_demo_weibo_pay">微博支付</string>

@@ -17,6 +17,7 @@
 package com.sina.weibo.sdk.demo.openapi;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.demo.AccessTokenKeeper;
 import com.sina.weibo.sdk.demo.Constants;
+import com.sina.weibo.sdk.demo.HomeActivity;
 import com.sina.weibo.sdk.demo.R;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
@@ -95,7 +97,10 @@ public class WBStatusAPIActivity extends Activity implements OnItemClickListener
             if (mAccessToken != null && mAccessToken.isSessionValid()) {
                 switch (position) {
                 case 0:
-                    mStatusesAPI.friendsTimeline(0L, 0L, 10, 1, false, 0, false, mListener);
+                	//获取当前登录用户及其所关注用户的最新微博
+//                    mStatusesAPI.friendsTimeline(0L, 0L, 10, 1, false, 0, false, mListener);
+                	Intent intent = new Intent(WBStatusAPIActivity.this, HomeActivity.class);
+                	startActivity(intent);
                     break;
                     
                 case 1:

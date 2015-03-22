@@ -51,14 +51,6 @@ public class WBDemoMainActivity extends Activity {
             }
         });
 
-        // 分享到微博功能
-        this.findViewById(R.id.feature_share).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WBDemoMainActivity.this, WBShareMainActivity.class));
-            }
-        });
         
         // 社会化组件
         this.findViewById(R.id.social_component).setOnClickListener(new OnClickListener() {
@@ -68,14 +60,6 @@ public class WBDemoMainActivity extends Activity {
             }
         });
         
-        // 登录注销按钮功能
-        this.findViewById(R.id.feature_login_logout).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WBDemoMainActivity.this, WBLoginLogoutActivity.class));
-            }
-        });
         
         // 开放接口（Open API）功能
         this.findViewById(R.id.feature_open_api).setOnClickListener(new OnClickListener() {

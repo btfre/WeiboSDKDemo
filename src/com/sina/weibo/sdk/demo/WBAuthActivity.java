@@ -72,21 +72,6 @@ public class WBAuthActivity extends Activity {
         mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
         mSsoHandler = new SsoHandler(WBAuthActivity.this, mAuthInfo);
         
-        // SSO 授权, 仅客户端
-        findViewById(R.id.obtain_token_via_sso).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSsoHandler.authorizeClientSso(new AuthListener());
-            }
-        });
-        
-        // SSO 授权, 仅Web
-        findViewById(R.id.obtain_token_via_web).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSsoHandler.authorizeWeb(new AuthListener());
-            }
-        });
         
         // SSO 授权, ALL IN ONE
         findViewById(R.id.obtain_token_via_signature).setOnClickListener(new OnClickListener() {
@@ -103,14 +88,6 @@ public class WBAuthActivity extends Activity {
                 AccessTokenKeeper.clear(getApplicationContext());
                 mAccessToken = new Oauth2AccessToken();
                 updateTokenView(false);
-            }
-        });
-        
-        // 通过 Code 获取 Token
-        findViewById(R.id.obtain_token_via_code).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WBAuthActivity.this, WBAuthCodeActivity.class));
             }
         });
 

@@ -5,8 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-
-
+/*
+ * 过渡动画，要有一个判断是否登录的操作，如果登录了，就直接跳到主界面，没有登录，则需要进行授权
+*/
 public class SplashActivity extends Activity {
 	
 	//Splash过渡的延迟时间
