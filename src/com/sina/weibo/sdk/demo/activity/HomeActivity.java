@@ -106,9 +106,9 @@ public class HomeActivity extends Activity {
 							listItem.put(
 									"profile_image_url",
 									statuses.statusList.get(i).user.profile_image_url);
-							listItem.put("userScreenName",
+							listItem.put("screen_name",
 									statuses.statusList.get(i).user.screen_name);
-							listItem.put("weiboContent",
+							listItem.put("weibo_text",
 									statuses.statusList.get(i).text);
 							list.add(listItem);
 						}
