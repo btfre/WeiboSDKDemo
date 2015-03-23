@@ -1,5 +1,6 @@
-package com.sina.weibo.sdk.demo;
+package com.sina.weibo.sdk.demo.activity;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -8,16 +9,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.demo.AccessTokenKeeper;
+import com.sina.weibo.sdk.demo.Constants;
+import com.sina.weibo.sdk.demo.R;
+import com.sina.weibo.sdk.demo.R.id;
+import com.sina.weibo.sdk.demo.R.layout;
+import com.sina.weibo.sdk.demo.adapter.HomeAdapter;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
@@ -32,6 +58,8 @@ public class HomeActivity extends Activity {
 	private Oauth2AccessToken mAccessToken;
 	/** 用于获取微博信息流等操作的API */
 	private StatusesAPI mStatusesAPI;
+	/** 微博列表（头像，昵称，内容） */
+	private List<Map<String, Object>> list;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,11 +70,17 @@ public class HomeActivity extends Activity {
 		mAccessToken = AccessTokenKeeper.readAccessToken(this);
 		// 对statusAPI实例化
 		mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, mAccessToken);
-		if (mAccessToken != null && mAccessToken.isSessionValid()) {
-			// 获取当前登录用户及其所关注用户的最新微博
-			mStatusesAPI.friendsTimeline(0L, 0L, 10, 1, false, 0, false,
-					mListener);
-		}
+
+		new Thread() {
+			public void run() {
+				if (mAccessToken != null && mAccessToken.isSessionValid()) {
+					// 获取当前登录用户及其所关注用户的最新微博
+					mStatusesAPI.friendsTimeline(0L, 0L, 10, 1, false, 0,
+							false, mListener);
+				}
+			}
+		}.start();
+
 	}
 
 	/**
@@ -65,23 +99,23 @@ public class HomeActivity extends Activity {
 						// "获取微博信息流成功, 条数: " + statuses.statusList.size(),
 						// Toast.LENGTH_LONG).show();
 
-						List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();
+						list = new ArrayList<Map<String, Object>>();
+
 						for (int i = 0; i < statuses.statusList.size(); i++) {
 							Map<String, Object> listItem = new HashMap<String, Object>();
-							listItem.put("useScreenName",
+							listItem.put(
+									"profile_image_url",
+									statuses.statusList.get(i).user.profile_image_url);
+							listItem.put("userScreenName",
 									statuses.statusList.get(i).user.screen_name);
-							listItem.put("weiboContent", statuses.statusList.get(i).text);
-							listItems.add(listItem);
+							listItem.put("weiboContent",
+									statuses.statusList.get(i).text);
+							list.add(listItem);
 						}
-						SimpleAdapter simpleAdapter = new SimpleAdapter(
-								HomeActivity.this, listItems,
-								R.layout.activity_home, new String[] {
-										"useScreenName", "weiboContent" }, new int[] {
-										R.id.user_screen_name, R.id.weibo_cnt });
+						HomeAdapter myAdapter = new HomeAdapter(HomeActivity.this, list);
 
 						ListView list = (ListView) findViewById(R.id.mylist);
-						list.setAdapter(simpleAdapter);
-
+						list.setAdapter(myAdapter);
 					}
 				} else if (response.startsWith("{\"created_at\"")) {
 					// 调用 Status#parse 解析字符串成微博对象
@@ -106,26 +140,4 @@ public class HomeActivity extends Activity {
 
 	};
 
-	public Bitmap getUrlImage(String url) {
-		Bitmap image = null;
-		try {
-			URL picUrl = new URL(url);
-			// 获得链接
-			HttpURLConnection connection = (HttpURLConnection) picUrl
-					.openConnection();
-			// 设置超时
-			connection.setConnectTimeout(5000);
-			connection.setDoInput(true);
-			// 不缓存
-			connection.setUseCaches(false);
-			connection.connect();
-			InputStream inputStream = connection.getInputStream();
-			image = BitmapFactory.decodeStream(inputStream);
-			inputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return image;
-	}
 }

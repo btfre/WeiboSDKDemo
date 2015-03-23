@@ -1,4 +1,7 @@
-package com.sina.weibo.sdk.demo;
+package com.sina.weibo.sdk.demo.activity;
+
+import com.sina.weibo.sdk.demo.R;
+import com.sina.weibo.sdk.demo.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;

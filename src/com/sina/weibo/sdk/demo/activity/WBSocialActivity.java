@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sina.weibo.sdk.demo;
+package com.sina.weibo.sdk.demo.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,6 +24,11 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.component.view.AttentionComponentView;
 import com.sina.weibo.sdk.component.view.CommentComponentView;
+import com.sina.weibo.sdk.demo.AccessTokenKeeper;
+import com.sina.weibo.sdk.demo.Constants;
+import com.sina.weibo.sdk.demo.R;
+import com.sina.weibo.sdk.demo.R.id;
+import com.sina.weibo.sdk.demo.R.layout;
 import com.sina.weibo.sdk.exception.WeiboException;
 
 /**

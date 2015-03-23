@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sina.weibo.sdk.demo;
+package com.sina.weibo.sdk.demo.activity;
 
 import java.text.SimpleDateFormat;
 import android.app.Activity;
@@ -30,6 +30,12 @@ import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.demo.AccessTokenKeeper;
+import com.sina.weibo.sdk.demo.Constants;
+import com.sina.weibo.sdk.demo.R;
+import com.sina.weibo.sdk.demo.R.id;
+import com.sina.weibo.sdk.demo.R.layout;
+import com.sina.weibo.sdk.demo.R.string;
 import com.sina.weibo.sdk.exception.WeiboException;
 
 /**
