@@ -23,8 +23,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.sina.weibo.sdk.demo.R;
-import com.sina.weibo.sdk.demo.R.id;
-import com.sina.weibo.sdk.demo.R.layout;
 import com.sina.weibo.sdk.demo.openapi.WBOpenAPIActivity;
 import com.sina.weibo.sdk.utils.LogUtil;
 

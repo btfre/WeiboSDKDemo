@@ -17,15 +17,17 @@
 package com.sina.weibo.sdk.demo.activity;
 
 import java.text.SimpleDateFormat;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
@@ -33,9 +35,6 @@ import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.demo.AccessTokenKeeper;
 import com.sina.weibo.sdk.demo.Constants;
 import com.sina.weibo.sdk.demo.R;
-import com.sina.weibo.sdk.demo.R.id;
-import com.sina.weibo.sdk.demo.R.layout;
-import com.sina.weibo.sdk.demo.R.string;
 import com.sina.weibo.sdk.exception.WeiboException;
 
 /**
@@ -46,10 +45,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
  */
 public class WBAuthActivity extends Activity {
     
-    private static final String TAG = "weibosdk";
-
-    /** 显示认证后的信息，如 AccessToken */
-    private TextView mTokenText;
+	private static final String TAG = HomeActivity.class.getName();
     
     private AuthInfo mAuthInfo;
     
@@ -66,11 +62,6 @@ public class WBAuthActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-        
-        // 获取 Token View，并让提示 View 的内容可滚动（小屏幕可能显示不全）
-        mTokenText = (TextView) findViewById(R.id.token_text_view);
-        TextView hintView = (TextView) findViewById(R.id.obtain_token_hint);
-        hintView.setMovementMethod(new ScrollingMovementMethod());
 
         // 创建微博实例
         //mWeiboAuth = new WeiboAuth(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
@@ -84,6 +75,8 @@ public class WBAuthActivity extends Activity {
             @Override
             public void onClick(View v) {
                 mSsoHandler.authorize(new AuthListener());
+                Intent intent = new Intent(WBAuthActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
         
@@ -94,6 +87,9 @@ public class WBAuthActivity extends Activity {
                 AccessTokenKeeper.clear(getApplicationContext());
                 mAccessToken = new Oauth2AccessToken();
                 updateTokenView(false);
+                Toast.makeText(WBAuthActivity.this, R.string.weibosdk_demo_logout_success, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(WBAuthActivity.this, WBDemoMainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -178,12 +174,11 @@ public class WBAuthActivity extends Activity {
         String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(
                 new java.util.Date(mAccessToken.getExpiresTime()));
         String format = getString(R.string.weibosdk_demo_token_to_string_format_1);
-        mTokenText.setText(String.format(format, mAccessToken.getToken(), date));
-        
+        Log.i(TAG, String.format(format, mAccessToken.getToken(), date));
         String message = String.format(format, mAccessToken.getToken(), date);
         if (hasExisted) {
             message = getString(R.string.weibosdk_demo_token_has_existed) + "\n" + message;
         }
-        mTokenText.setText(message);
+        Log.i(TAG, message);
     }
 }
